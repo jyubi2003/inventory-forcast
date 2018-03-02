@@ -6,12 +6,16 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import Slider from 'material-ui/Slider';
+// import Slider from 'material-ui/Slider';
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import ReactBootstrapSlider from 'react-bootstrap-slider';
-/* import './index.css'; */
+import Slider, { Range } from 'rc-slider';
+// We can just import Slider or Range to reduce bundle size
+// import Slider from 'rc-slider/lib/Slider';
+// import Range from 'rc-slider/lib/Range';
+import 'rc-slider/assets/index.css';
+// /* import './index.css'; */
 
 // eslint-disable-next-line
 const styles = {
@@ -83,16 +87,12 @@ class Selections extends React.Component {
 
 class Controls extends React.Component {
   state = {
-    firstSlider: 0.5,
-    secondSlider: 50,
-    thirdSlider: 0.5,
-    fourthSlider: 0.5,
+    firstSlider: 0.1,
+    secondSlider: 0.2,
+    thirdSlider: 0.3,
+    fourthSlider: 0.4,
     fifthSlider: 0.5,
-    sixthSlider: 0.5,
-    currentValue: 0.5,
-    step: 0.1,
-    max: 1,
-    min: 0,
+    sixthSlider: 0.6,
   };
 
   handleFirstSlider = (event, value) => {
@@ -136,7 +136,7 @@ class Controls extends React.Component {
               min={0}
               max={1}
               step={0.01}
-              value={this.state.firstSlider}
+              defaultValue={this.state.firstSlider}
               onChange={this.handleFirstSlider}
             />
           </div>
@@ -146,9 +146,9 @@ class Controls extends React.Component {
             </p>
             <Slider
               min={0}
-              max={100}
-              step={1}
-              value={this.state.secondSlider}
+              max={1}
+              step={0.01}
+              defaultValue={this.state.secondSlider}
               onChange={this.handleSecondSlider}
             />
           </div>
@@ -160,7 +160,7 @@ class Controls extends React.Component {
               min={0}
               max={1}
               step={0.01}
-              value={this.state.thirdSlider}
+              defaultValue={this.state.thirdSlider}
               onChange={this.handleThirdSlider}
             />
           </div>
@@ -172,7 +172,7 @@ class Controls extends React.Component {
               min={0}
               max={1}
               step={0.01}
-              value={this.state.fourthSlider}
+              defaultValue={this.state.fourthSlider}
               onChange={this.handleFourthSlider}
             />
           </div>
@@ -184,7 +184,7 @@ class Controls extends React.Component {
               min={0}
               max={1}
               step={0.01}
-              value={this.state.fifthSlider}
+              defaultValue={this.state.fifthSlider}
               onChange={this.handleFifthSlider}
             />
           </div>
@@ -192,31 +192,15 @@ class Controls extends React.Component {
             <p className="control-label">
               <span>{'スタイル'}</span>
             </p>
-            <Slider
+            <Range
               min={0}
               max={1}
               step={0.01}
-              value={this.state.sixthSlider}
-              onChange={this.handleSixthSlider}
+              defaultValue={[0.2,0.4]}
+              onChange={this.handleFifthSlider}
             />
           </div>
-          {/*
-          <div>
-            <p className="control-label">
-              <span>{'スタイル'}</span>
-            </p>
-            <ReactBootstrapSlider
-              value={this.state.currentValue}
-              change={this.changeValue}
-              slideStop={this.changeValue}
-              step={this.state.step}
-              max={this.state.max}
-              min={this.state.min}
-              orientation="horizontal"
-              reversed={true}
-              disabled="enabled" />
-          </div>
-          */}
+        </div>
       </div>
     );
   }
