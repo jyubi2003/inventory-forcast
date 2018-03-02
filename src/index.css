@@ -1,3 +1,53 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+ *    v2.0 | 20110126
+ *       License: none (public domain)
+ *
+ */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 0;
@@ -18,74 +68,125 @@ img {
   height:     800px;
   background: #F3F0ED;
   text-align: left;
-  border:     1px solid #999;
+  /* border:     1px solid #999; */
 }
 
 .selections {
-  border: 1px solid #999;
+  margin:     0px;
+  padding:    0px;
+  width:      100%;
+  display:    flex;
+  justify-content: center;
+  padding:    0;
+  list-style: none;
+  /* border:     1px solid #999; */
 }
 
 .selection-1 {
-  border:   1px solid #999;
-}
-
-.selection-2 {
-  border:   1px solid #999;
-}
- 
-.selection-3 {
-  border:   1px solid #999;
+  width:      calc(95% / 3);
+  margin:     2px;
+  /* border:     1px solid #999; */
 }
 
 .prediction {
-  border:   1px solid #999;  
+  margin:     0px 20px;
+  padding:    0px;
+  height:     600px;
+  /* border:     1px solid #999; */
 }
 
 .controls {
-  border: 1px solid #999;
+  margin:     20px 0px 0px;
+  padding:    0px;
+  width:      400px;
+  float:      left;
+  display:    inline;
+  font-weight: bold;
+  /* border:     1px solid #999; */
 }
 
+.control {
+  padding-top: 10px;   
+  height:     70px; 
+  position:   relative;
+  /* border:     1px solid #999; */
+  /* background-color:#77ff77; */
+}
+
+
 .control-label {
-  border: 1px solid #999;
-  font-size: 14px;
-  line-height: 20px;
-  margin-right: -1px;
-  margin-top: -1px;
+  display:    inline-block;
+  float:      left;
+  width:      70px;
+  /* border:     1px solid #999; */
 }
 
 .control-slider {
-  border: 1px solid #999;
+  display:    inline-block;
+  margin-top: 5px;
+  float:      right;
+  width:      300px;
+  /* border:     1px solid #999; */
 }
 
 .forcast {
-  border:   1px solid #999;
-  float:  right;
+  margin:     20px 0px 0px;
+  padding:    0px;
+  width:      750px;
+  float:      right;
+  display:    inline;
+  /* border:     1px solid #999; */
 }
 
 .graph {
-  border:   1px solid #999;
-  font-size: 18px;
+  font-weight: bold;
+  /* border:     1px solid #999; */
 }
 
 .action {
-  border:   1px solid #999;
+  /* border:     1px solid #999; */
 }
 
-.icon-prev::before{
-  border:   1px solid #999;
-  width: 12px;
-  height: 12px;
+.current-week {
+  display:    inline;
+  /* border:     1px solid #999; */
+}
+
+
+.icon-prev {
+  display:    inline-box;
+  border:     1px solid #999;
+  width:      12px;
+  height:     12px;
   -webkit-border-radius: 50%;
   border-radius: 50%;
   background: #7a0;
 }
 
-.icon-next::after{
-  border:   1px solid #999;
-  left: 5px;
+.icon-next {
+  display:    inline-box;
+  border:     1px solid #999;
+  left:       5px;
   box-sizing: border-box;
-  width: 3px;
-  height: 3px;
-  border: 3px solid transparent;
+  width:      3px;
+  height:     3px;
+  border:     3px solid transparent;
   border-left: 3px solid #fff;
+}
+
+.performance {
+  display:    inline;
+  /* border:     1px solid #999; */
+}
+
+.input {
+  /* border:     1px solid #999; */
+}
+
+.execute {
+  /* border:     1px solid #999; */
+}
+
+.atr-fitting {
+  /* border:     1px solid #999; */
 }

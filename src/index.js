@@ -15,7 +15,7 @@ import Slider, { Range } from 'rc-slider';
 // import Slider from 'rc-slider/lib/Slider';
 // import Range from 'rc-slider/lib/Range';
 import 'rc-slider/assets/index.css';
-// /* import './index.css'; */
+import './index.css';
 
 // eslint-disable-next-line
 const styles = {
@@ -34,52 +34,57 @@ class Selections extends React.Component {
 
   render() {
     return (
-      <div>
-        <SelectField 
-          className="selection-1"
-          floatingLabelText="カテゴリ"
-          value={this.state.value}
-          onChange={this.handleChange}
-        >
-          <MenuItem value={1} primaryText="コート" />
-          <MenuItem value={2} primaryText="ジャケット" />
-          <MenuItem value={3} primaryText="ブルゾン" />
-          <MenuItem value={4} primaryText="トップス" />
-          <MenuItem value={5} primaryText="パンツ" />
-          <MenuItem value={6} primaryText="スカート" />
-          <MenuItem value={7} primaryText="ワンピース" />
+      <div className="selections">
+        <div  className="selection-1">
+          <SelectField 
+            floatingLabelText="カテゴリ"
+            fullWidth={true}
+            value={this.state.value}
+            onChange={this.handleChange}
+          >
+            <MenuItem value={1} primaryText="コート" />
+            <MenuItem value={2} primaryText="ジャケット" />
+            <MenuItem value={3} primaryText="ブルゾン" />
+            <MenuItem value={4} primaryText="トップス" />
+            <MenuItem value={5} primaryText="パンツ" />
+            <MenuItem value={6} primaryText="スカート" />
+            <MenuItem value={7} primaryText="ワンピース" />
         </SelectField>
+        </div>
 
-        <SelectField
-          className="selection-2"
-          floatingLabelText="商品"
-          value={this.state.value}
-          onChange={this.handleChange}
-        >
-          <MenuItem value={1} primaryText="ミニ" />
-          <MenuItem value={2} primaryText="ひざ丈" />
-          <MenuItem value={3} primaryText="ロング" />
-          <MenuItem value={4} primaryText="その他" />
-        </SelectField>
-        
-        <SelectField  
-          className="selection-3"
-          floatingLabelText="店舗"
-          value={this.state.value}
-          onChange={this.handleChange}
-        >
-          <MenuItem value={1} primaryText="Ａ店" />
-          <MenuItem value={2} primaryText="Ｂ店" />
-          <MenuItem value={3} primaryText="Ｃ店" />
-          <MenuItem value={4} primaryText="Ｄ店" />
-          <MenuItem value={5} primaryText="Ｅ店" />
-          <MenuItem value={6} primaryText="Ｆ店" />
-          <MenuItem value={7} primaryText="Ｇ店" />
-          <MenuItem value={8} primaryText="Ｈ店" />
-          <MenuItem value={9} primaryText="Ｉ店" />
-          <MenuItem value={10} primaryText="Ｊ店" />
-        </SelectField>
-        <br />
+        <div  className="selection-1">
+          <SelectField
+            floatingLabelText="商品"
+            fullWidth={true}
+            value={this.state.value}
+            onChange={this.handleChange}
+          >
+            <MenuItem value={1} primaryText="ミニ" />
+            <MenuItem value={2} primaryText="ひざ丈" />
+            <MenuItem value={3} primaryText="ロング" />
+            <MenuItem value={4} primaryText="その他" />
+          </SelectField>
+        </div>
+
+        <div  className="selection-1">
+          <SelectField  
+            floatingLabelText="店舗"
+            fullWidth={true}
+            value={this.state.value}
+            onChange={this.handleChange}
+          >
+            <MenuItem value={1} primaryText="Ａ店" />
+            <MenuItem value={2} primaryText="Ｂ店" />
+            <MenuItem value={3} primaryText="Ｃ店" />
+            <MenuItem value={4} primaryText="Ｄ店" />
+            <MenuItem value={5} primaryText="Ｅ店" />
+            <MenuItem value={6} primaryText="Ｆ店" />
+            <MenuItem value={7} primaryText="Ｇ店" />
+            <MenuItem value={8} primaryText="Ｈ店" />
+            <MenuItem value={9} primaryText="Ｉ店" />
+            <MenuItem value={10} primaryText="Ｊ店" />
+          </SelectField>
+         </div>
       </div>
     );
   }
@@ -126,13 +131,13 @@ class Controls extends React.Component {
   render() {
     return(
       <div className="controls">
-        <p>属性パラメータ</p>
+        <p style={{textDecoration: "underline"}}>属性パラメータ</p>
         <div>
-          <div>
-            <p className="control-label">
-              <span>{'スタイル'}</span>
-            </p>
-            <Slider 
+          <div className="control">
+            <div className="control-label">
+              {'スタイル'}
+            </div>
+            <Slider  className="control-slider"
               min={0}
               max={1}
               step={0.01}
@@ -140,11 +145,11 @@ class Controls extends React.Component {
               onChange={this.handleFirstSlider}
             />
           </div>
-          <div>
+          <div className="control"> 
             <p className="control-label">
-              <span>{'スタイル'}</span>
+              {'スタイル'}
             </p>
-            <Slider
+            <Slider className="control-slider"
               min={0}
               max={1}
               step={0.01}
@@ -152,11 +157,11 @@ class Controls extends React.Component {
               onChange={this.handleSecondSlider}
             />
           </div>
-          <div>
+          <div className="control">
             <p className="control-label">
-              <span>{'スタイル'}</span>
+              {'スタイル'}
             </p>
-            <Slider
+            <Slider className="control-slider"
               min={0}
               max={1}
               step={0.01}
@@ -164,11 +169,11 @@ class Controls extends React.Component {
               onChange={this.handleThirdSlider}
             />
           </div>
-          <div>
+          <div className="control">
             <p className="control-label">
-              <span>{'スタイル'}</span>
+              {'スタイル'}
             </p>
-            <Slider
+            <Slider className="control-slider"
               min={0}
               max={1}
               step={0.01}
@@ -176,11 +181,11 @@ class Controls extends React.Component {
               onChange={this.handleFourthSlider}
             />
           </div>
-          <div>
+          <div className="control">
             <p className="control-label">
-              <span>{'スタイル'}</span>
+              {'スタイル'}
             </p>
-            <Slider
+            <Slider className="control-slider"
               min={0}
               max={1}
               step={0.01}
@@ -188,11 +193,11 @@ class Controls extends React.Component {
               onChange={this.handleFifthSlider}
             />
           </div>
-          <div>
+          <div className="control">
             <p className="control-label">
               <span>{'スタイル'}</span>
             </p>
-            <Range
+            <Range className="control-slider"
               min={0}
               max={1}
               step={0.01}
@@ -230,8 +235,8 @@ class SimpleLineChart extends React.Component {
   render () {
     return (
       <div className="graph">
-        <p>予測曲線</p>
-        <LineChart width={800} height={450} data={data} 
+        <p style={{textDecoration: "underline"}}>予測曲線</p>
+        <LineChart width={750} height={450} data={data} 
           margin={{top: 5, right: 30, left: 20, bottom: 5}}>
           <XAxis dataKey="name"/>
           <YAxis/>
@@ -251,23 +256,23 @@ class Action extends React.Component {
   render() {
     return(
       <div className="action">
-        <IconButton
-          iconClassName="icon-prev"
-          tooltip="Previous"
-          tooltipPosition="bottom-center"
-        />
         <div className="current-week">
-          <p>第</p>
-          <p>
-            {/* ToDo */}
-          </p>
-          <p>週</p>
+          <IconButton
+            iconClassName="icon-prev"
+            tooltip="Previous"
+            tooltipPosition="bottom-center"
+          />
+          <span>第</span>
+          <span>
+            {1}
+          </span>
+          <span>週</span>
+          <IconButton
+            iconClassName="icon-next"
+            tooltip="Next"
+            tooltipPosition="bottom-center"
+          />
         </div>
-        <IconButton
-          iconClassName="icon-next"
-          tooltip="Next"
-          tooltipPosition="bottom-center"
-        />
         <TextField
          className="performance"
           hintText="Hint Text"
@@ -296,22 +301,12 @@ class ApparelDemo extends React.Component {
     return (
       <MuiThemeProvider>
         <div className="apparel-demo">
-          <div className="selections">
-            <Selections />
-          </div>
+          <Selections />
           <div className="prediction">
-            <div className="controls">
-              <Controls />
-            </div>
+            <Controls />
             <div className="forcast">
-              <div className="graph">
-                <div className="simplw-line-chart">
-                  <SimpleLineChart />
-                </div>
-              </div>
-              <div className="action">
-                <Action />
-              </div>
+              <SimpleLineChart />
+              <Action />
             </div>
           </div>
         </div>
