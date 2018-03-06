@@ -1,16 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 // eslint-disable-next-line
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 // import Slider from 'material-ui/Slider';
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import Slider, { Range } from 'rc-slider';
+import Slider, { Range, createSliderWithTooltip } from 'rc-slider';
 // We can just import Slider or Range to reduce bundle size
 // import Slider from 'rc-slider/lib/Slider';
 // import Range from 'rc-slider/lib/Range';
@@ -24,6 +25,8 @@ const styles = {
   },
   margin:  12,
 };
+
+const SliderWithTooltip = createSliderWithTooltip(Slider);
 
 class Selections extends React.Component {
   state = {
@@ -41,6 +44,7 @@ class Selections extends React.Component {
             fullWidth={true}
             value={this.state.value}
             onChange={this.handleChange}
+            floatingLabelStyle={{fontSize: '14pt'}}
           >
             <MenuItem value={1} primaryText="コート" />
             <MenuItem value={2} primaryText="ジャケット" />
@@ -58,12 +62,16 @@ class Selections extends React.Component {
             fullWidth={true}
             value={this.state.value}
             onChange={this.handleChange}
+            floatingLabelStyle={{fontSize: '14pt'}}
           >
             <MenuItem value={1} primaryText="ミニ" />
             <MenuItem value={2} primaryText="ひざ丈" />
             <MenuItem value={3} primaryText="ロング" />
             <MenuItem value={4} primaryText="その他" />
           </SelectField>
+        </div>
+        <div className="detail-link">
+            <a ref="#">詳細</a>
         </div>
 
         <div  className="selection-1">
@@ -72,6 +80,7 @@ class Selections extends React.Component {
             fullWidth={true}
             value={this.state.value}
             onChange={this.handleChange}
+            floatingLabelStyle={{fontSize: '14pt'}}
           >
             <MenuItem value={1} primaryText="Ａ店" />
             <MenuItem value={2} primaryText="Ｂ店" />
@@ -131,13 +140,13 @@ class Controls extends React.Component {
   render() {
     return(
       <div className="controls">
-        <p style={{textDecoration: "underline"}}>属性パラメータ</p>
+        <p style={{textDecoration: "underline", fontSize: "14pt"}}>属性パラメータ</p>
         <div>
           <div className="control">
             <div className="control-label">
               {'スタイル'}
             </div>
-            <Slider  className="control-slider"
+            <SliderWithTooltip  className="control-slider"
               min={0}
               max={1}
               step={0.01}
@@ -149,7 +158,7 @@ class Controls extends React.Component {
             <p className="control-label">
               {'スタイル'}
             </p>
-            <Slider className="control-slider"
+            <SliderWithTooltip className="control-slider"
               min={0}
               max={1}
               step={0.01}
@@ -161,7 +170,7 @@ class Controls extends React.Component {
             <p className="control-label">
               {'スタイル'}
             </p>
-            <Slider className="control-slider"
+            <SliderWithTooltip className="control-slider"
               min={0}
               max={1}
               step={0.01}
@@ -173,7 +182,7 @@ class Controls extends React.Component {
             <p className="control-label">
               {'スタイル'}
             </p>
-            <Slider className="control-slider"
+            <SliderWithTooltip className="control-slider"
               min={0}
               max={1}
               step={0.01}
@@ -185,7 +194,7 @@ class Controls extends React.Component {
             <p className="control-label">
               {'スタイル'}
             </p>
-            <Slider className="control-slider"
+            <SliderWithTooltip className="control-slider"
               min={0}
               max={1}
               step={0.01}
@@ -197,12 +206,12 @@ class Controls extends React.Component {
             <p className="control-label">
               <span>{'スタイル'}</span>
             </p>
-            <Range className="control-slider"
+            <SliderWithTooltip className="control-slider"
               min={0}
               max={1}
               step={0.01}
-              defaultValue={[0.2,0.4]}
-              onChange={this.handleFifthSlider}
+              defaultValue={[this.state.sixthSlider]}
+              onChange={this.handleSixthSlider}
             />
           </div>
         </div>
@@ -211,6 +220,7 @@ class Controls extends React.Component {
   }
 }
 
+/*
 const data = [
   {name: '0th Week', est: 0, act: 0, amt: 0},
   {name: '1th Week', est: 100, act: 120, amt: 20},
@@ -250,7 +260,58 @@ class SimpleLineChart extends React.Component {
     );
   }
 }
+*/
 
+const series = [
+  {name: '予測値', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 100},
+    {category: '第2週', value: 250},
+    {category: '第3週', value: 500},
+    {category: '第4週', value: 600},
+    {category: '第5週', value: 840},
+    {category: '第6週', value: 920},
+    {category: '第7週', value: 930},
+    {category: '第8週', value: 890},
+    {category: '第9週', value: 800},
+    {category: '第10週', value: 700},
+    {category: '第11週', value: 590},
+    {category: '第12週', value: 480},
+    {category: '第13週', value: 390},
+    {category: '第14週', value: 300},
+    {category: '第15週', value: 210},
+    {category: '第16週', value: 120},
+    {category: '第17週', value: 90}
+  ], stroke: '#E57373'},
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 250},
+    {category: '第2週', value: 320},
+    {category: '第3週', value: 580},
+    {category: '第4週', value: 660}
+  ], stroke: '#8884d8'},
+];
+
+class SimpleAreaChart extends React.Component {
+  render () {
+    return (
+      <div className="graph">
+        <p style={{textDecoration: "underline", fontSize: "14pt"}}>予測曲線</p>
+        <LineChart width={750} height={450}>
+          <CartesianGrid strokeDasharray="3 3" />          
+          <XAxis dataKey="category" type="category" allowDuplicatedCategory={false} />
+          <YAxis dataKey="value"/>
+          <Tooltip/>
+          <Legend />
+          {series.map(s => (
+            <Line dataKey="value" data={s.data} name={s.name} key={s.name} stroke={s.stroke} strokeWidth={3} dot={{ strokeWidth: 8, r: 4}}
+            />
+          ))}
+        </LineChart>
+      </div>
+    );
+  }
+}
 
 class Action extends React.Component {
   render() {
@@ -275,7 +336,7 @@ class Action extends React.Component {
         </div>
         <TextField
          className="performance"
-          hintText="Hint Text"
+          hintText="実績"
         />
         <RaisedButton
           className="input"
@@ -305,7 +366,7 @@ class ApparelDemo extends React.Component {
           <div className="prediction">
             <Controls />
             <div className="forcast">
-              <SimpleLineChart />
+              <SimpleAreaChart />
               <Action />
             </div>
           </div>

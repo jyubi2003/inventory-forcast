@@ -65,7 +65,7 @@ img {
   margin:     0px auto;
   padding:    0px 0px 20px;
   width:      1200px;
-  height:     800px;
+  height:     700px;
   background: #F3F0ED;
   text-align: left;
   /* border:     1px solid #999; */
@@ -83,20 +83,33 @@ img {
 }
 
 .selection-1 {
-  width:      calc(95% / 3);
-  margin:     2px;
+  width:      calc(80% / 3);
+  margin:     10px;
   /* border:     1px solid #999; */
 }
 
+.detail-link {
+  width:      40px;
+  margin:     5px;
+  justif-content: center;
+  text-align: center;
+  vertical-align:  baseline;
+  /* border:     1px solid #999; */
+}
+
+.detail-link a {
+  line-height: 120px;
+}
+
 .prediction {
-  margin:     0px 20px;
+  margin:     0px 10px;
   padding:    0px;
   height:     600px;
   /* border:     1px solid #999; */
 }
 
 .controls {
-  margin:     20px 0px 0px;
+  margin:     0px 0px 0px;
   padding:    0px;
   width:      400px;
   float:      left;
@@ -130,7 +143,7 @@ img {
 }
 
 .forcast {
-  margin:     20px 0px 0px;
+  margin:     0px 0px 0px;
   padding:    0px;
   width:      750px;
   float:      right;
@@ -144,16 +157,16 @@ img {
 }
 
 .action {
-  /* border:     1px solid #999; */
+ /*  border:     1px solid #999;  */
 }
 
 .current-week {
   display:    inline;
-  /* border:     1px solid #999; */
+  font-size:  16pt;
+  /* border:     1px solid #999;  */
 }
 
-
-.icon-prev {
+.icon-prev-1 {
   display:    inline-box;
   border:     1px solid #999;
   width:      12px;
@@ -163,30 +176,50 @@ img {
   background: #7a0;
 }
 
-.icon-next {
+.icon-next-1 {
   display:    inline-box;
   border:     1px solid #999;
   left:       5px;
   box-sizing: border-box;
-  width:      3px;
-  height:     3px;
+  width:      12px;
+  height:     12px;
   border:     3px solid transparent;
   border-left: 3px solid #fff;
 }
 
+.icon-prev{
+  border-top: 10px solid transparent;
+  border-left: 10x solid transparent;
+  border-right: 10px solid black;
+  border-bottom: 10px solid transparent;
+  }
+
+.icon-next{
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-left: 10px solid black;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  }
+
 .performance {
   display:    inline;
+  margin-left:   20px;
   /* border:     1px solid #999; */
 }
 
 .input {
+  margin-left:   5px;
   /* border:     1px solid #999; */
 }
 
 .execute {
+  margin-left:   5px;
   /* border:     1px solid #999; */
 }
 
 .atr-fitting {
-  /* border:     1px solid #999; */
+  margin-left:   5px;
+  /* border:     1px solid #999;  */
 }
