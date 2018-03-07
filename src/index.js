@@ -220,49 +220,7 @@ class Controls extends React.Component {
   }
 }
 
-/*
-const data = [
-  {name: '0th Week', est: 0, act: 0, amt: 0},
-  {name: '1th Week', est: 100, act: 120, amt: 20},
-  {name: '2nd Week', est: 250, act: 280, amt: 30},
-  {name: '3rd Week', est: 400, act: 360, amt: -40},
-  {name: '4th Week', est: 450, act: 460, amt: 10},
-  {name: '5th Week', est: 700, act: 750, amt: 50},
-  {name: '6th Week', est: 850, act: 840, amt: -10},
-  {name: '7th Week', est: 900, act: 960, amt: 60},
-  {name: '8th Week', est: 1000, act: 0, amt: 100},
-  {name: '9th Week', est: 980, act: 0, amt: 170},
-  {name: '10th Week', est: 900, act: 0, amt: 90},
-  {name: '11th Week', est: 820, act: 0, amt: 40},
-  {name: '12th Week', est: 700, act: 0, amt: -20},
-  {name: '13th Week', est: 660, act: 0, amt: -30},
-  {name: '14th Week', est: 510, act: 0, amt: 30},
-  {name: '15th Week', est: 399, act: 0, amt: 21},
-  {name: '16th Week', est: 280, act: false, amt: 30},
-];
-
-class SimpleLineChart extends React.Component {
-  render () {
-    return (
-      <div className="graph">
-        <p style={{textDecoration: "underline"}}>予測曲線</p>
-        <LineChart width={750} height={450} data={data} 
-          margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-          <XAxis dataKey="name"/>
-          <YAxis/>
-          <CartesianGrid strokeDasharray="3 3"/>
-          <Tooltip/>
-          <Legend />
-          <Line type="monotone" dataKey="est" stroke="#8884d8" activeDot={{r: 8}} />
-          <Line type="monotone" dataKey="act" stroke="#82ca9d" />
-        </LineChart>
-      </div>
-    );
-  }
-}
-*/
-
-const series = [
+const seriesBase = [
   {name: '予測値', data: [
     {category: '第0週', value: 0},
     {category: '第1週', value: 100},
@@ -294,6 +252,8 @@ const series = [
 
 class SimpleAreaChart extends React.Component {
   render () {
+    const currentSeries = this.props.series;
+
     return (
       <div className="graph">
         <p style={{textDecoration: "underline", fontSize: "14pt"}}>予測曲線</p>
@@ -303,7 +263,7 @@ class SimpleAreaChart extends React.Component {
           <YAxis dataKey="value"/>
           <Tooltip/>
           <Legend />
-          {series.map(s => (
+          {currentSeries.map(s => (
             <Line dataKey="value" data={s.data} name={s.name} key={s.name} stroke={s.stroke} strokeWidth={3} dot={{ strokeWidth: 8, r: 4}}
             />
           ))}
@@ -357,6 +317,32 @@ class Action extends React.Component {
   }
 }
 
+class Forcast extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      history: [
+        seriesBase,
+      ],
+      currentWeek: 0,
+    }
+  }
+
+  render() {
+    const history = this.state.history;
+    const currentSeries = history[this.state.currentWeek];
+
+    return (
+      <div className="forcast">
+        <SimpleAreaChart 
+          series={currentSeries}
+        />
+        <Action />
+      </div>
+    );
+  }
+}
+
 class ApparelDemo extends React.Component {
   render() {
     return (
@@ -365,10 +351,7 @@ class ApparelDemo extends React.Component {
           <Selections />
           <div className="prediction">
             <Controls />
-            <div className="forcast">
-              <SimpleAreaChart />
-              <Action />
-            </div>
+            <Forcast />
           </div>
         </div>
       </MuiThemeProvider>
