@@ -283,7 +283,8 @@ class Forcast extends React.Component {
   }
 }
 
-const series_0_0 = [
+// 初期状態
+const series_0_0_0 = [
   {name: '予測値', data: [
     {category: '第0週', value: 0},
     {category: '第1週', value: 0},
@@ -306,30 +307,238 @@ const series_0_0 = [
   ], stroke: '#E57373'},
 ];
 
-const series_1_0 = [
+// 予測実行１（コントロールの平均値が０．５以下）
+const series_0_1_0 = [
   {name: '予測値', data: [
     {category: '第0週', value: 0},
-    {category: '第1週', value: 100},
-    {category: '第2週', value: 250},
-    {category: '第3週', value: 500},
-    {category: '第4週', value: 600},
-    {category: '第5週', value: 840},
-    {category: '第6週', value: 920},
-    {category: '第7週', value: 930},
-    {category: '第8週', value: 890},
-    {category: '第9週', value: 800},
-    {category: '第10週', value: 700},
-    {category: '第11週', value: 590},
-    {category: '第12週', value: 480},
-    {category: '第13週', value: 390},
-    {category: '第14週', value: 300},
-    {category: '第15週', value: 210},
-    {category: '第16週', value: 120},
-    {category: '第17週', value: 90}
+    {category: '第1週', value: 10},
+    {category: '第2週', value: 25},
+    {category: '第3週', value: 50},
+    {category: '第4週', value: 60},
+    {category: '第5週', value: 84},
+    {category: '第6週', value: 92},
+    {category: '第7週', value: 93},
+    {category: '第8週', value: 89},
+    {category: '第9週', value: 80},
+    {category: '第10週', value: 70},
+    {category: '第11週', value: 59},
+    {category: '第12週', value: 48},
+    {category: '第13週', value: 39},
+    {category: '第14週', value: 30},
+    {category: '第15週', value: 21},
+    {category: '第16週', value: 12},
+    {category: '第17週', value: 9}
   ], stroke: '#E57373'},
 ];
 
-const series_2_0 = [
+// 予測実行１＋１週目実績
+const series_0_1_1 = [
+  {name: '予測値', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 10},
+    {category: '第2週', value: 25},
+    {category: '第3週', value: 50},
+    {category: '第4週', value: 60},
+    {category: '第5週', value: 84},
+    {category: '第6週', value: 92},
+    {category: '第7週', value: 93},
+    {category: '第8週', value: 89},
+    {category: '第9週', value: 80},
+    {category: '第10週', value: 70},
+    {category: '第11週', value: 59},
+    {category: '第12週', value: 48},
+    {category: '第13週', value: 39},
+    {category: '第14週', value: 30},
+    {category: '第15週', value: 21},
+    {category: '第16週', value: 12},
+    {category: '第17週', value: 9}
+  ], stroke: '#E57373'},
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 25}
+  ], stroke: '#8884d8'},
+];
+
+// 予測実行１＋２週目実績
+const series_0_1_2 = [
+  {name: '予測値', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 10},
+    {category: '第2週', value: 25},
+    {category: '第3週', value: 50},
+    {category: '第4週', value: 60},
+    {category: '第5週', value: 84},
+    {category: '第6週', value: 92},
+    {category: '第7週', value: 93},
+    {category: '第8週', value: 89},
+    {category: '第9週', value: 80},
+    {category: '第10週', value: 70},
+    {category: '第11週', value: 59},
+    {category: '第12週', value: 48},
+    {category: '第13週', value: 39},
+    {category: '第14週', value: 30},
+    {category: '第15週', value: 21},
+    {category: '第16週', value: 12},
+    {category: '第17週', value: 9}
+  ], stroke: '#E57373'},
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 25},
+    {category: '第2週', value: 32},
+  ], stroke: '#8884d8'},
+];
+
+// 予測実行１＋３週目実績
+const series_0_1_3 = [
+  {name: '予測値', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 10},
+    {category: '第2週', value: 25},
+    {category: '第3週', value: 50},
+    {category: '第4週', value: 60},
+    {category: '第5週', value: 84},
+    {category: '第6週', value: 92},
+    {category: '第7週', value: 93},
+    {category: '第8週', value: 89},
+    {category: '第9週', value: 80},
+    {category: '第10週', value: 70},
+    {category: '第11週', value: 59},
+    {category: '第12週', value: 48},
+    {category: '第13週', value: 39},
+    {category: '第14週', value: 30},
+    {category: '第15週', value: 21},
+    {category: '第16週', value: 12},
+    {category: '第17週', value: 9}
+  ], stroke: '#E57373'},
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 25},
+    {category: '第2週', value: 32},
+    {category: '第3週', value: 58},
+  ], stroke: '#8884d8'},
+];
+
+// 予測実行１＋４週目実績
+const series_0_1_4 = [
+  {name: '予測値', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 10},
+    {category: '第2週', value: 25},
+    {category: '第3週', value: 50},
+    {category: '第4週', value: 60},
+    {category: '第5週', value: 84},
+    {category: '第6週', value: 92},
+    {category: '第7週', value: 93},
+    {category: '第8週', value: 89},
+    {category: '第9週', value: 80},
+    {category: '第10週', value: 70},
+    {category: '第11週', value: 59},
+    {category: '第12週', value: 48},
+    {category: '第13週', value: 39},
+    {category: '第14週', value: 30},
+    {category: '第15週', value: 21},
+    {category: '第16週', value: 12},
+    {category: '第17週', value: 9}
+  ], stroke: '#E57373'},
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 25},
+    {category: '第2週', value: 32},
+    {category: '第3週', value: 58},
+    {category: '第4週', value: 66}
+  ], stroke: '#8884d8'},
+];
+
+// 予測実行１＋５週目実績
+const series_0_1_5 = [
+  {name: '予測値', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 10},
+    {category: '第2週', value: 25},
+    {category: '第3週', value: 50},
+    {category: '第4週', value: 60},
+    {category: '第5週', value: 84},
+    {category: '第6週', value: 92},
+    {category: '第7週', value: 93},
+    {category: '第8週', value: 89},
+    {category: '第9週', value: 80},
+    {category: '第10週', value: 70},
+    {category: '第11週', value: 59},
+    {category: '第12週', value: 48},
+    {category: '第13週', value: 39},
+    {category: '第14週', value: 30},
+    {category: '第15週', value: 21},
+    {category: '第16週', value: 12},
+    {category: '第17週', value: 9}
+  ], stroke: '#E57373'},
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 25},
+    {category: '第2週', value: 32},
+    {category: '第3週', value: 58},
+    {category: '第4週', value: 66},
+    {category: '第5週', value: 75}
+  ], stroke: '#8884d8'},
+];
+
+// 予測実行１＋１週目実績
+const series_0_1_6 = [
+  {name: '予測値', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 10},
+    {category: '第2週', value: 25},
+    {category: '第3週', value: 50},
+    {category: '第4週', value: 60},
+    {category: '第5週', value: 84},
+    {category: '第6週', value: 92},
+    {category: '第7週', value: 93},
+    {category: '第8週', value: 89},
+    {category: '第9週', value: 80},
+    {category: '第10週', value: 70},
+    {category: '第11週', value: 59},
+    {category: '第12週', value: 48},
+    {category: '第13週', value: 39},
+    {category: '第14週', value: 30},
+    {category: '第15週', value: 21},
+    {category: '第16週', value: 12},
+    {category: '第17週', value: 9}
+  ], stroke: '#E57373'},
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 25},
+    {category: '第2週', value: 32},
+    {category: '第3週', value: 58},
+    {category: '第4週', value: 66},
+    {category: '第5週', value: 75},
+    {category: '第6週', value: 88}
+  ], stroke: '#8884d8'},
+];
+
+// 予測実行２（コントロールの平均値が0.5よりも大きい）
+const series_0_2_0 = [
+  {name: '予測値', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 10},
+    {category: '第2週', value: 25},
+    {category: '第3週', value: 50},
+    {category: '第4週', value: 65},
+    {category: '第5週', value: 90},
+    {category: '第6週', value: 98},
+    {category: '第7週', value: 94},
+    {category: '第8週', value: 90},
+    {category: '第9週', value: 86},
+    {category: '第10週', value: 70},
+    {category: '第11週', value: 59},
+    {category: '第12週', value: 45},
+    {category: '第13週', value: 30},
+    {category: '第14週', value: 25},
+    {category: '第15週', value: 19},
+    {category: '第16週', value: 10},
+    {category: '第17週', value: 10}
+  ], stroke: '#E57373'},
+];
+
+const series_0_3_0 = [
   {name: '予測値', data: [
     {category: '第0週', value: 0},
     {category: '第1週', value: 100},
@@ -359,37 +568,7 @@ const series_2_0 = [
   ], stroke: '#8884d8'},
 ];
 
-const series_3_0 = [
-  {name: '予測値', data: [
-    {category: '第0週', value: 0},
-    {category: '第1週', value: 100},
-    {category: '第2週', value: 250},
-    {category: '第3週', value: 500},
-    {category: '第4週', value: 600},
-    {category: '第5週', value: 840},
-    {category: '第6週', value: 920},
-    {category: '第7週', value: 930},
-    {category: '第8週', value: 890},
-    {category: '第9週', value: 800},
-    {category: '第10週', value: 700},
-    {category: '第11週', value: 590},
-    {category: '第12週', value: 480},
-    {category: '第13週', value: 390},
-    {category: '第14週', value: 300},
-    {category: '第15週', value: 210},
-    {category: '第16週', value: 120},
-    {category: '第17週', value: 90}
-  ], stroke: '#E57373'},
-  {name: '実績', data: [
-    {category: '第0週', value: 0},
-    {category: '第1週', value: 250},
-    {category: '第2週', value: 320},
-    {category: '第3週', value: 580},
-    {category: '第4週', value: 660}
-  ], stroke: '#8884d8'},
-];
-
-const series_4_0 = [
+const series_0_4_0 = [
   {name: '予測値', data: [
     {category: '第0週', value: 0},
     {category: '第1週', value: 100},
@@ -467,7 +646,7 @@ class ApparelDemo extends React.Component {
       slider6:  0.5,
       mark1:  mark1,
       history: [
-        series_0_0,
+        series_0_0_0,
       ],
     }
   }
@@ -487,10 +666,32 @@ class ApparelDemo extends React.Component {
 
   handleClickPredict() {
     // seriesBaseを切り替える
-    const newHistory = [series_1_0];
+/*    const newHistory = [series_0_1_0];
     this.setState({
       history: newHistory,
     });
+*/  
+    const attr_avg = (this.state.slider1 
+      + this.state.slider2 
+      + this.state.slider3 
+      + this.state.slider4 
+      + this.state.slider5
+      + this.state.slider6) / 6 ;
+
+    if (attr_avg <= 0.5){
+      const newSeries_0_1_0 = [series_0_1_0];
+      this.setState({
+        history: newSeries_0_1_0,
+      });
+
+    } else {
+      const newSeries_0_2_0 = [series_0_2_0];
+      this.setState({
+        history: newSeries_0_2_0,
+      });
+
+    }
+  
   }
 
   handleClickFitting() {
