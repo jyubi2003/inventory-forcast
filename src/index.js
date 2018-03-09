@@ -42,7 +42,7 @@ class Selections extends React.Component {
     return (
       <div className="selections">
         <div  className="selection-1">
-          <SelectField 
+          <SelectField
             floatingLabelText="カテゴリ"
             fullWidth={true}
             value={this.props.selection1}
@@ -78,7 +78,7 @@ class Selections extends React.Component {
         </div>
 
         <div  className="selection-1">
-          <SelectField  
+          <SelectField
             floatingLabelText="店舗"
             fullWidth={true}
             value={this.props.selection3}
@@ -121,7 +121,7 @@ class Controls extends React.Component {
               onChange={(value) => this.props.onSliderChange1(value)}
             />
           </div>
-          <div className="control"> 
+          <div className="control">
             <p className="control-label">
               {'スタイル'}
             </p>
@@ -195,7 +195,7 @@ class SimpleAreaChart extends React.Component {
       <div className="graph">
         <p style={{textDecoration: "underline", fontSize: "14pt"}}>予測曲線</p>
         <LineChart width={750} height={450}>
-          <CartesianGrid strokeDasharray="3 3" />          
+          <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="category" type="category" allowDuplicatedCategory={false} />
           <YAxis dataKey="value"/>
           <Tooltip/>
@@ -222,7 +222,7 @@ class Action extends React.Component {
             onClick={() => this.props.onClickNavi(false)}
           />
           <span>第</span>
-          <span>
+          <span className="week">
             {this.props.currentWeek}
           </span>
           <span>週</span>
@@ -234,6 +234,7 @@ class Action extends React.Component {
           />
         </div>
         <TextField
+          id="input-text"
           className="performance"
           hintText="実績"
         />
@@ -268,11 +269,12 @@ class Forcast extends React.Component {
     // Actionに現在の週とクリック時のハンドラを渡す
     return (
       <div className="forcast">
-        <SimpleAreaChart 
+        <SimpleAreaChart
           series={currentSeries}
         />
-        <Action 
-           currentWeek={history.length - 1}
+        <Action
+           // currentWeek={history.length - 1}
+           currentWeek={this.props.week}
            onClickNavi={(isNext) => this.props.onClickNavi(isNext)}
            onClickInput={(value) => this.props.onClickInput(value)}
            onClickPredict={() => this.props.onClickPredict()}
@@ -599,7 +601,7 @@ const series_0_4_0 = [
 ];
 
 const mark0 = {
-  
+
 }
 
 const mark1 = {
@@ -644,6 +646,7 @@ class ApparelDemo extends React.Component {
       slider4:  0.5,
       slider5:  0.5,
       slider6:  0.5,
+      week:     0,
       mark1:  mark1,
       history: [
         series_0_0_0,
@@ -658,7 +661,7 @@ class ApparelDemo extends React.Component {
 
   handleClickInput(value) {
     // 直前の描画単位のコピーを作成する
-    
+
     // コピーに入力値を追加する
 
 
@@ -670,11 +673,11 @@ class ApparelDemo extends React.Component {
     this.setState({
       history: newHistory,
     });
-*/  
-    const attr_avg = (this.state.slider1 
-      + this.state.slider2 
-      + this.state.slider3 
-      + this.state.slider4 
+*/
+    const attr_avg = (this.state.slider1
+      + this.state.slider2
+      + this.state.slider3
+      + this.state.slider4
       + this.state.slider5
       + this.state.slider6) / 6 ;
 
@@ -691,7 +694,7 @@ class ApparelDemo extends React.Component {
       });
 
     }
-  
+
   }
 
   handleClickFitting() {
@@ -758,7 +761,7 @@ class ApparelDemo extends React.Component {
     return (
       <MuiThemeProvider>
         <div className="apparel-demo">
-          <Selections 
+          <Selections
             selection1={this.state.selection1}
             selection2={this.state.selection2}
             selection3={this.state.selection3}
@@ -782,8 +785,9 @@ class ApparelDemo extends React.Component {
               onSliderChange6={(i) => this.handleSliderChange6(i)}
               mark1={this.state.mark1}
             />
-            <Forcast 
+            <Forcast
               history={this.state.history}
+              week={this.state.week}
               onClickNavi={(isNext) => this.handleClickNavi(isNext)}
               onClickInput={(value) => this.handleClickInput(value)}
               onClickPredict={() => this.handleClickPredict()}
