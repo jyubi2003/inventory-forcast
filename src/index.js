@@ -12,7 +12,7 @@ import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Slider, { Range, createSliderWithTooltip } from 'rc-slider';
-import Spinner from 'react-spinner';
+import AppBar from 'material-ui/AppBar';
 // We can just import Slider or Range to reduce bundle size
 // import Slider from 'rc-slider/lib/Slider';
 // import Range from 'rc-slider/lib/Range';
@@ -237,9 +237,10 @@ class Action extends React.Component {
         <TextField
           id="input-text"
           className="performance"
-          value={this.props.inputData}
+          /* value={this.props.inputData} */
+          onChange={(event) => this.props.onChangeInput(event)}
           /* style={width: 200;} */
-          hintText="実績"
+          /* hintText="実績" */
         />
         <RaisedButton
           className="input"
@@ -280,6 +281,7 @@ class Forcast extends React.Component {
            currentWeek={this.props.week}
            inputData={this.props.inputData}
            onClickNavi={(isNext) => this.props.onClickNavi(isNext)}
+           onChangeInput={(event) => this.props.onChangeInput(event)}
            onClickInput={(value) => this.props.onClickInput(value)}
            onClickPredict={() => this.props.onClickPredict()}
            onClickFitting={() => this.props.onClickFitting()}
@@ -292,9 +294,9 @@ class Forcast extends React.Component {
 // 初期状態
 // データ名のつけ方
 // series_X_X_X
-//        | | +-- 週
-//        | +---- スライダによる変化
-//        +------ 上部セレクタによる変化
+//        | | +-- 週（現在は５週まで）
+//        | +---- スライダによる変化（現在は２件）
+//        +------ 上部セレクタによる変化(現在は１件のみ)
 const series_0_0_0 = [
   {name: '予測値', data: [
     {category: '第0週', value: 0},
@@ -318,7 +320,7 @@ const series_0_0_0 = [
   ], stroke: '#E57373'},
 ];
 
-// 予測実行１（コントロールの平均値が０．５以下）
+// 予測実行１（スライダの平均値が０．５以下）
 const series_0_1_0 = [
   {name: '予測値', data: [
     {category: '第0週', value: 0},
@@ -492,40 +494,7 @@ const series_0_1_5 = [
   ], stroke: '#8884d8'},
 ];
 
-// 予測実行１＋６週目実績
-const series_0_1_6 = [
-  {name: '予測値', data: [
-    {category: '第0週', value: 0},
-    {category: '第1週', value: 10},
-    {category: '第2週', value: 25},
-    {category: '第3週', value: 50},
-    {category: '第4週', value: 60},
-    {category: '第5週', value: 84},
-    {category: '第6週', value: 92},
-    {category: '第7週', value: 93},
-    {category: '第8週', value: 89},
-    {category: '第9週', value: 80},
-    {category: '第10週', value: 70},
-    {category: '第11週', value: 59},
-    {category: '第12週', value: 48},
-    {category: '第13週', value: 39},
-    {category: '第14週', value: 30},
-    {category: '第15週', value: 21},
-    {category: '第16週', value: 12},
-    {category: '第17週', value: 9}
-  ], stroke: '#E57373'},
-  {name: '実績', data: [
-    {category: '第0週', value: 0},
-    {category: '第1週', value: 25},
-    {category: '第2週', value: 32},
-    {category: '第3週', value: 58},
-    {category: '第4週', value: 66},
-    {category: '第5週', value: 75},
-    {category: '第6週', value: 88}
-  ], stroke: '#8884d8'},
-];
-
-// 予測実行２（コントロールの平均値が0.5よりも大きい）
+// 予測実行２（スライダの平均値が0.5よりも大きい）
 const series_0_2_0 = [
   {name: '予測値', data: [
     {category: '第0週', value: 0},
@@ -699,6 +668,7 @@ const series_0_2_5 = [
   ], stroke: '#8884d8'},
 ];
 
+// スライダのバリエーション用（未使用）
 const series_0_3_0 = [
   {name: '予測値', data: [
     {category: '第0週', value: 0},
@@ -904,23 +874,27 @@ class ApparelDemo extends React.Component {
   // [矢印]ボタン
   handleClickNavi(isNext) {
     const weekWithData = this.state.weekWithData;
-    const week=this.state.week;
+    var week=this.state.week;
     if(isNext) {
-      if (week < weekWithData){
+      if (week <= weekWithData){
         this.setState({
-          week: week + 1,
+          week: ++week,
         });
       }
     } else {
       if (week > 0){
         this.setState({
-          week: week - 1,
+          week: --week,
         });
       }
     }
 
+    if (week > weekWithData){
+      return;
+    }
+
     if (this.state.attr_avg <= 0.5){
-      switch (this.state.week) {
+      switch (week) {
         case 0:
           this.setState({
             history: [series_0_1_0],
@@ -949,7 +923,7 @@ class ApparelDemo extends React.Component {
         default:
       }
     } else {
-      switch (this.state.week) {
+      switch (week) {
         case 0:
           this.setState({
             history: [series_0_2_0],
@@ -981,6 +955,10 @@ class ApparelDemo extends React.Component {
 
   }
 
+  // 実績値入力フィールド変更
+  handleChangeInput(event){
+  }
+
   // [実績値入力]ボタン
   handleClickInput(value) {
     // 最終的にやること
@@ -989,32 +967,37 @@ class ApparelDemo extends React.Component {
     // デモに向けて　取り急ぎ固定的なデータを出力する
     const week = this.state.week;
     const weekWithData = this.state.weekWithData;
-    if (week > weekWithData){
+    if (week > weekWithData + 1){
       return;
     }
     if (this.state.attr_avg <= 0.5){
       switch (this.state.week) {
         case 0:
           this.setState({
-            history: [series_0_1_1],
+            history: [series_0_1_0],
           });
           break;
         case 1:
           this.setState({
-            history: [series_0_1_2],
+            history: [series_0_1_1],
           });
           break;
         case 2:
           this.setState({
-            history: [series_0_1_3],
+            history: [series_0_1_2],
           });
           break;
         case 3:
           this.setState({
-            history: [series_0_1_4],
+            history: [series_0_1_3],
           });
           break;
         case 4:
+          this.setState({
+            history: [series_0_1_4],
+          });
+          break;
+        case 5:
           this.setState({
             history: [series_0_1_5],
           });
@@ -1025,25 +1008,30 @@ class ApparelDemo extends React.Component {
       switch (this.state.week) {
         case 0:
           this.setState({
-            history: [series_0_2_1],
+            history: [series_0_2_0],
           });
           break;
         case 1:
           this.setState({
-            history: [series_0_2_2],
+            history: [series_0_2_1],
           });
           break;
         case 2:
           this.setState({
-            history: [series_0_2_3],
+            history: [series_0_2_2],
           });
           break;
         case 3:
           this.setState({
-            history: [series_0_2_4],
+            history: [series_0_2_3],
           });
           break;
         case 4:
+          this.setState({
+            history: [series_0_2_4],
+          });
+          break;
+        case 5:
           this.setState({
             history: [series_0_2_5],
           });
@@ -1052,9 +1040,9 @@ class ApparelDemo extends React.Component {
       }
     }
     this.setState({
-      week: week + 1,
-      weekWithData: weekWithData + 1,
-      /* inputData: " ", */
+      week: week,
+      weekWithData: week,
+      inputData: "",
     })
   }
 
@@ -1094,6 +1082,7 @@ class ApparelDemo extends React.Component {
     return (
       <MuiThemeProvider>
         <div className="apparel-demo">
+          <AppBar />
           <Selections
             selection1={this.state.selection1}
             selection2={this.state.selection2}
@@ -1123,6 +1112,7 @@ class ApparelDemo extends React.Component {
               week={this.state.week}
               inputData={this.state.inputData}
               onClickNavi={(isNext) => this.handleClickNavi(isNext)}
+              onChangeInput={(value) => this.handleChangeInput(value)}
               onClickInput={(value) => this.handleClickInput(value)}
               onClickPredict={() => this.handleClickPredict()}
               onClickFitting={() => this.handleClickFitting()}
