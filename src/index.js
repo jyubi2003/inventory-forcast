@@ -12,6 +12,7 @@ import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Slider, { Range, createSliderWithTooltip } from 'rc-slider';
+import Spinner from 'react-spinner';
 // We can just import Slider or Range to reduce bundle size
 // import Slider from 'rc-slider/lib/Slider';
 // import Range from 'rc-slider/lib/Range';
@@ -236,6 +237,8 @@ class Action extends React.Component {
         <TextField
           id="input-text"
           className="performance"
+          value={this.props.inputData}
+          /* style={width: 200;} */
           hintText="実績"
         />
         <RaisedButton
@@ -275,6 +278,7 @@ class Forcast extends React.Component {
         <Action
            // currentWeek={history.length - 1}
            currentWeek={this.props.week}
+           inputData={this.props.inputData}
            onClickNavi={(isNext) => this.props.onClickNavi(isNext)}
            onClickInput={(value) => this.props.onClickInput(value)}
            onClickPredict={() => this.props.onClickPredict()}
@@ -286,6 +290,11 @@ class Forcast extends React.Component {
 }
 
 // 初期状態
+// データ名のつけ方
+// series_X_X_X
+//        | | +-- 週
+//        | +---- スライダによる変化
+//        +------ 上部セレクタによる変化
 const series_0_0_0 = [
   {name: '予測値', data: [
     {category: '第0週', value: 0},
@@ -483,7 +492,7 @@ const series_0_1_5 = [
   ], stroke: '#8884d8'},
 ];
 
-// 予測実行１＋１週目実績
+// 予測実行１＋６週目実績
 const series_0_1_6 = [
   {name: '予測値', data: [
     {category: '第0週', value: 0},
@@ -538,6 +547,156 @@ const series_0_2_0 = [
     {category: '第16週', value: 10},
     {category: '第17週', value: 10}
   ], stroke: '#E57373'},
+];
+
+// 予測実行２＋１週目実績
+const series_0_2_1 = [
+  {name: '予測値', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 10},
+    {category: '第2週', value: 25},
+    {category: '第3週', value: 50},
+    {category: '第4週', value: 65},
+    {category: '第5週', value: 90},
+    {category: '第6週', value: 98},
+    {category: '第7週', value: 94},
+    {category: '第8週', value: 90},
+    {category: '第9週', value: 86},
+    {category: '第10週', value: 70},
+    {category: '第11週', value: 59},
+    {category: '第12週', value: 45},
+    {category: '第13週', value: 30},
+    {category: '第14週', value: 25},
+    {category: '第15週', value: 19},
+    {category: '第16週', value: 10},
+    {category: '第17週', value: 10}
+  ], stroke: '#E57373'},
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 25},
+  ], stroke: '#8884d8'},
+];
+
+// 予測実行２＋２週目実績
+const series_0_2_2 = [
+  {name: '予測値', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 10},
+    {category: '第2週', value: 25},
+    {category: '第3週', value: 50},
+    {category: '第4週', value: 65},
+    {category: '第5週', value: 90},
+    {category: '第6週', value: 98},
+    {category: '第7週', value: 94},
+    {category: '第8週', value: 90},
+    {category: '第9週', value: 86},
+    {category: '第10週', value: 70},
+    {category: '第11週', value: 59},
+    {category: '第12週', value: 45},
+    {category: '第13週', value: 30},
+    {category: '第14週', value: 25},
+    {category: '第15週', value: 19},
+    {category: '第16週', value: 10},
+    {category: '第17週', value: 10}
+  ], stroke: '#E57373'},
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 25},
+    {category: '第2週', value: 32},
+  ], stroke: '#8884d8'},
+];
+
+// 予測実行２＋３週目実績
+const series_0_2_3 = [
+  {name: '予測値', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 10},
+    {category: '第2週', value: 25},
+    {category: '第3週', value: 50},
+    {category: '第4週', value: 65},
+    {category: '第5週', value: 90},
+    {category: '第6週', value: 98},
+    {category: '第7週', value: 94},
+    {category: '第8週', value: 90},
+    {category: '第9週', value: 86},
+    {category: '第10週', value: 70},
+    {category: '第11週', value: 59},
+    {category: '第12週', value: 45},
+    {category: '第13週', value: 30},
+    {category: '第14週', value: 25},
+    {category: '第15週', value: 19},
+    {category: '第16週', value: 10},
+    {category: '第17週', value: 10}
+  ], stroke: '#E57373'},
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 25},
+    {category: '第2週', value: 32},
+    {category: '第3週', value: 58},
+  ], stroke: '#8884d8'},
+];
+
+// 予測実行２＋４週目実績
+const series_0_2_4 = [
+  {name: '予測値', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 10},
+    {category: '第2週', value: 25},
+    {category: '第3週', value: 50},
+    {category: '第4週', value: 65},
+    {category: '第5週', value: 90},
+    {category: '第6週', value: 98},
+    {category: '第7週', value: 94},
+    {category: '第8週', value: 90},
+    {category: '第9週', value: 86},
+    {category: '第10週', value: 70},
+    {category: '第11週', value: 59},
+    {category: '第12週', value: 45},
+    {category: '第13週', value: 30},
+    {category: '第14週', value: 25},
+    {category: '第15週', value: 19},
+    {category: '第16週', value: 10},
+    {category: '第17週', value: 10}
+  ], stroke: '#E57373'},
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 25},
+    {category: '第2週', value: 32},
+    {category: '第3週', value: 58},
+    {category: '第4週', value: 66},
+  ], stroke: '#8884d8'},
+];
+
+// 予測実行２＋５週目実績
+const series_0_2_5 = [
+  {name: '予測値', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 10},
+    {category: '第2週', value: 25},
+    {category: '第3週', value: 50},
+    {category: '第4週', value: 65},
+    {category: '第5週', value: 90},
+    {category: '第6週', value: 98},
+    {category: '第7週', value: 94},
+    {category: '第8週', value: 90},
+    {category: '第9週', value: 86},
+    {category: '第10週', value: 70},
+    {category: '第11週', value: 59},
+    {category: '第12週', value: 45},
+    {category: '第13週', value: 30},
+    {category: '第14週', value: 25},
+    {category: '第15週', value: 19},
+    {category: '第16週', value: 10},
+    {category: '第17週', value: 10}
+  ], stroke: '#E57373'},
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 25},
+    {category: '第2週', value: 32},
+    {category: '第3週', value: 58},
+    {category: '第4週', value: 66},
+    {category: '第5週', value: 75}
+  ], stroke: '#8884d8'},
 ];
 
 const series_0_3_0 = [
@@ -647,62 +806,25 @@ class ApparelDemo extends React.Component {
       slider5:  0.5,
       slider6:  0.5,
       week:     0,
+      weekWithData: 0,
+      inputData: undefined,
       mark1:  mark1,
+      mark2:  mark2,
+      mark3:  mark3,
+      mark4:  mark4,
+      mark5:  mark5,
+      mark6:  mark6,
       history: [
         series_0_0_0,
       ],
+      attr_avg: 0.5,
     }
   }
 
-  handleClickNavi(isNext) {
-    this.setState({
-    });
-  }
 
-  handleClickInput(value) {
-    // 直前の描画単位のコピーを作成する
-
-    // コピーに入力値を追加する
-
-
-  }
-
-  handleClickPredict() {
-    // seriesBaseを切り替える
-/*    const newHistory = [series_0_1_0];
-    this.setState({
-      history: newHistory,
-    });
-*/
-    const attr_avg = (this.state.slider1
-      + this.state.slider2
-      + this.state.slider3
-      + this.state.slider4
-      + this.state.slider5
-      + this.state.slider6) / 6 ;
-
-    if (attr_avg <= 0.5){
-      const newSeries_0_1_0 = [series_0_1_0];
-      this.setState({
-        history: newSeries_0_1_0,
-      });
-
-    } else {
-      const newSeries_0_2_0 = [series_0_2_0];
-      this.setState({
-        history: newSeries_0_2_0,
-      });
-
-    }
-
-  }
-
-  handleClickFitting() {
-    // 最後の実績値につないだ新しいシリーズを追加する
-    // 属性パラメータを変更する
-
-  }
-
+  /*
+   * 上部セレクタのハンドラ群
+   */
   handleSelectChange1(i){
     this.setState({
       selection1: i.value,
@@ -721,42 +843,253 @@ class ApparelDemo extends React.Component {
     })
   }
 
+
+  /*
+   * 左部コントロールスライダーのハンドラ群
+   */
   handleSliderChange1(i){
     this.setState({
       slider1: i,
     })
+    this.calcAverage();
   }
 
   handleSliderChange2(i){
     this.setState({
       slider2: i,
     })
+    this.calcAverage();
   }
 
   handleSliderChange3(i){
     this.setState({
       slider3: i,
     })
+    this.calcAverage();
   }
 
   handleSliderChange4(i){
     this.setState({
       slider4: i,
     })
+    this.calcAverage();
   }
 
   handleSliderChange5(i){
     this.setState({
       slider5: i,
     })
+    this.calcAverage();
   }
 
   handleSliderChange6(i){
     this.setState({
       slider6: i,
     })
+    this.calcAverage();
   }
 
+  calcAverage = () => this.setState({
+      attr_avg: ( this.state.slider1
+                + this.state.slider2
+                + this.state.slider3
+                + this.state.slider4
+                + this.state.slider5
+                + this.state.slider6 ) / 6 ,
+    })
+
+  /*
+   * 下部アクション部のハンドラ群
+   */
+  // [矢印]ボタン
+  handleClickNavi(isNext) {
+    const weekWithData = this.state.weekWithData;
+    const week=this.state.week;
+    if(isNext) {
+      if (week < weekWithData){
+        this.setState({
+          week: week + 1,
+        });
+      }
+    } else {
+      if (week > 0){
+        this.setState({
+          week: week - 1,
+        });
+      }
+    }
+
+    if (this.state.attr_avg <= 0.5){
+      switch (this.state.week) {
+        case 0:
+          this.setState({
+            history: [series_0_1_0],
+          });
+          break;
+        case 1:
+          this.setState({
+            history: [series_0_1_1],
+          });
+          break;
+        case 2:
+          this.setState({
+            history: [series_0_1_2],
+          });
+          break;
+        case 3:
+          this.setState({
+            history: [series_0_1_3],
+          });
+          break;
+        case 4:
+          this.setState({
+            history: [series_0_1_4],
+          });
+          break;
+        default:
+      }
+    } else {
+      switch (this.state.week) {
+        case 0:
+          this.setState({
+            history: [series_0_2_0],
+          });
+          break;
+        case 1:
+          this.setState({
+            history: [series_0_2_1],
+          });
+          break;
+        case 2:
+          this.setState({
+            history: [series_0_2_2],
+          });
+          break;
+        case 3:
+          this.setState({
+            history: [series_0_2_3],
+          });
+          break;
+        case 4:
+          this.setState({
+            history: [series_0_2_4],
+          });
+          break;
+        default:
+      }
+    }
+
+  }
+
+  // [実績値入力]ボタン
+  handleClickInput(value) {
+    // 最終的にやること
+    //  直前の描画単位のコピーを作成する
+    //  コピーに入力値を追加する
+    // デモに向けて　取り急ぎ固定的なデータを出力する
+    const week = this.state.week;
+    const weekWithData = this.state.weekWithData;
+    if (week > weekWithData){
+      return;
+    }
+    if (this.state.attr_avg <= 0.5){
+      switch (this.state.week) {
+        case 0:
+          this.setState({
+            history: [series_0_1_1],
+          });
+          break;
+        case 1:
+          this.setState({
+            history: [series_0_1_2],
+          });
+          break;
+        case 2:
+          this.setState({
+            history: [series_0_1_3],
+          });
+          break;
+        case 3:
+          this.setState({
+            history: [series_0_1_4],
+          });
+          break;
+        case 4:
+          this.setState({
+            history: [series_0_1_5],
+          });
+          break;
+        default:
+      }
+    } else {
+      switch (this.state.week) {
+        case 0:
+          this.setState({
+            history: [series_0_2_1],
+          });
+          break;
+        case 1:
+          this.setState({
+            history: [series_0_2_2],
+          });
+          break;
+        case 2:
+          this.setState({
+            history: [series_0_2_3],
+          });
+          break;
+        case 3:
+          this.setState({
+            history: [series_0_2_4],
+          });
+          break;
+        case 4:
+          this.setState({
+            history: [series_0_2_5],
+          });
+          break;
+        default:
+      }
+    }
+    this.setState({
+      week: week + 1,
+      weekWithData: weekWithData + 1,
+      /* inputData: " ", */
+    })
+  }
+
+  // [予測実行]ボタン
+  handleClickPredict() {
+    // seriesBaseを切り替える
+/*    const newHistory = [series_0_1_0];
+    this.setState({
+      history: newHistory,
+    });
+*/
+    if (this.state.attr_avg <= 0.5){
+      this.setState({
+        history: [series_0_1_0],
+      });
+
+    } else {
+      this.setState({
+        history: [series_0_2_0],
+      });
+
+    }
+
+  }
+
+  // [属性合わせ]ボタン
+  handleClickFitting() {
+    // 最後の実績値につないだ新しいシリーズを追加する
+    // 属性パラメータを変更する
+
+  }
+
+  /*
+   * 描画ルーチン
+   */
   render() {
     return (
       <MuiThemeProvider>
@@ -788,6 +1121,7 @@ class ApparelDemo extends React.Component {
             <Forcast
               history={this.state.history}
               week={this.state.week}
+              inputData={this.state.inputData}
               onClickNavi={(isNext) => this.handleClickNavi(isNext)}
               onClickInput={(value) => this.handleClickInput(value)}
               onClickPredict={() => this.handleClickPredict()}
