@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+// eslint-disable-next-line
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 // eslint-disable-next-line
@@ -11,7 +12,7 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import Slider, { Range, createSliderWithTooltip } from 'rc-slider';
+import Slider, {createSliderWithTooltip } from 'rc-slider';
 import AppBar from 'material-ui/AppBar';
 // We can just import Slider or Range to reduce bundle size
 // import Slider from 'rc-slider/lib/Slider';
@@ -26,6 +27,8 @@ const styles = {
   },
   margin:  12,
 };
+
+
 
 const SliderWithTooltip = createSliderWithTooltip(Slider);
 
@@ -103,6 +106,24 @@ class Selections extends React.Component {
   }
 }
 
+const Handle = Slider.Handle;
+
+const handle = (props) => {
+  const { value, dragging, index, ...restProps } = props;
+  return (
+    <Tooltip
+      prefixCls="rc-slider-tooltip"
+      overlay={value}
+      visible={dragging}
+      trriger={"manual"}
+      placement="top"
+      key={index}
+    >
+      <Handle value={value} {...restProps} />
+    </Tooltip>
+  );
+};
+
 class Controls extends React.Component {
   render() {
     return(
@@ -119,6 +140,7 @@ class Controls extends React.Component {
               step={0.01}
               marks={this.props.mark1}
               defaultValue={this.props.slider1}
+              handle={handle}
               onChange={(value) => this.props.onSliderChange1(value)}
             />
           </div>
@@ -130,6 +152,7 @@ class Controls extends React.Component {
               min={0}
               max={1}
               step={0.01}
+              marks={this.props.mark2}
               defaultValue={this.props.slider2}
               onChange={(value) => this.props.onSliderChange2(value)}
             />
@@ -142,6 +165,7 @@ class Controls extends React.Component {
               min={0}
               max={1}
               step={0.01}
+              marks={this.props.mark3}
               defaultValue={this.props.slider3}
               onChange={(value) => this.props.onSliderChange3(value)}
             />
@@ -154,6 +178,7 @@ class Controls extends React.Component {
               min={0}
               max={1}
               step={0.01}
+              marks={this.props.mark4}
               defaultValue={this.props.slider4}
               onChange={(value) => this.props.onSliderChange4(value)}
             />
@@ -166,6 +191,7 @@ class Controls extends React.Component {
               min={0}
               max={1}
               step={0.01}
+              marks={this.props.mark5}
               defaultValue={this.props.slider5}
               onChange={(value) => this.props.onSliderChange5(value)}
             />
@@ -178,6 +204,7 @@ class Controls extends React.Component {
               min={0}
               max={1}
               step={0.01}
+              marks={this.props.mark6}
               defaultValue={[this.props.slider6]}
               onChange={(value) => this.props.onSliderChange6(value)}
             />
@@ -202,7 +229,7 @@ class SimpleAreaChart extends React.Component {
           <Tooltip/>
           <Legend />
           {currentSeries.map(s => (
-            <Line dataKey="value" data={s.data} name={s.name} key={s.name} stroke={s.stroke} strokeWidth={3} dot={{ strokeWidth: 8, r: 4}}
+            <Line dataKey="value" data={s.data} name={s.name} key={s.name} stroke={s.stroke} strokeWidth={3} dot={{ strokeWidth: 8, r: 4}} strokeDasharray={s.strokeDasharray}
             />
           ))}
         </LineChart>
@@ -494,6 +521,53 @@ const series_0_1_5 = [
   ], stroke: '#8884d8'},
 ];
 
+// 予測実行１＋５週目実績＋予測修正値
+const series_0_1_5_0 = [
+  {name: '予測値', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 10},
+    {category: '第2週', value: 25},
+    {category: '第3週', value: 50},
+    {category: '第4週', value: 60},
+    {category: '第5週', value: 84},
+    {category: '第6週', value: 92},
+    {category: '第7週', value: 93},
+    {category: '第8週', value: 89},
+    {category: '第9週', value: 80},
+    {category: '第10週', value: 70},
+    {category: '第11週', value: 59},
+    {category: '第12週', value: 48},
+    {category: '第13週', value: 39},
+    {category: '第14週', value: 30},
+    {category: '第15週', value: 21},
+    {category: '第16週', value: 12},
+    {category: '第17週', value: 9}
+  ], stroke: '#F8BBD0', strokeDasharray: "2 2"},
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 25},
+    {category: '第2週', value: 32},
+    {category: '第3週', value: 58},
+    {category: '第4週', value: 66},
+    {category: '第5週', value: 75}
+  ], stroke: '#8884d8'},
+  {name: '予測修正', data: [
+    {category: '第5週', value: 75},
+    {category: '第6週', value: 98},
+    {category: '第7週', value: 105},
+    {category: '第8週', value: 93},
+    {category: '第9週', value: 85},
+    {category: '第10週', value: 68},
+    {category: '第11週', value: 62},
+    {category: '第12週', value: 43},
+    {category: '第13週', value: 32},
+    {category: '第14週', value: 24},
+    {category: '第15週', value: 15},
+    {category: '第16週', value: 9},
+    {category: '第17週', value: 2}
+  ], stroke: '#E57373'},
+];
+
 // 予測実行２（スライダの平均値が0.5よりも大きい）
 const series_0_2_0 = [
   {name: '予測値', data: [
@@ -668,7 +742,55 @@ const series_0_2_5 = [
   ], stroke: '#8884d8'},
 ];
 
+// 予測実行２＋５週目実績＋予測修正
+const series_0_2_5_0 = [
+  {name: '予測値', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 10},
+    {category: '第2週', value: 25},
+    {category: '第3週', value: 50},
+    {category: '第4週', value: 65},
+    {category: '第5週', value: 90},
+    {category: '第6週', value: 98},
+    {category: '第7週', value: 94},
+    {category: '第8週', value: 90},
+    {category: '第9週', value: 86},
+    {category: '第10週', value: 70},
+    {category: '第11週', value: 59},
+    {category: '第12週', value: 45},
+    {category: '第13週', value: 30},
+    {category: '第14週', value: 25},
+    {category: '第15週', value: 19},
+    {category: '第16週', value: 10},
+    {category: '第17週', value: 10}
+  ], stroke: '#F8BBD0', strokeDasharray: "2 2"},
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 25},
+    {category: '第2週', value: 32},
+    {category: '第3週', value: 58},
+    {category: '第4週', value: 66},
+    {category: '第5週', value: 75}
+  ], stroke: '#8884d8'},
+  {name: '予測修正', data: [
+    {category: '第5週', value: 75},
+    {category: '第6週', value: 96},
+    {category: '第7週', value: 94},
+    {category: '第8週', value: 90},
+    {category: '第9週', value: 86},
+    {category: '第10週', value: 70},
+    {category: '第11週', value: 59},
+    {category: '第12週', value: 45},
+    {category: '第13週', value: 30},
+    {category: '第14週', value: 25},
+    {category: '第15週', value: 19},
+    {category: '第16週', value: 10},
+    {category: '第17週', value: 10}
+], stroke: '#E57373'},
+];
+
 // スライダのバリエーション用（未使用）
+// eslint-disable-next-line
 const series_0_3_0 = [
   {name: '予測値', data: [
     {category: '第0週', value: 0},
@@ -699,6 +821,8 @@ const series_0_3_0 = [
   ], stroke: '#8884d8'},
 ];
 
+// スライダのバリエーション用（未使用）
+// eslint-disable-next-line
 const series_0_4_0 = [
   {name: '予測値', data: [
     {category: '第0週', value: 0},
@@ -729,37 +853,55 @@ const series_0_4_0 = [
   ], stroke: '#8884d8'},
 ];
 
+const styles2 = {
+ color: 'red',
+ font: 'bold large/150% "メイリオ"',
+}
+
 const mark0 = {
 
 }
 
 const mark1 = {
   0.3: {
-    style: {
-      color: 'red',
-    },
+    style: styles2,
     label:<strong>0.3</strong>,
   },
 }
 
 const mark2 = {
-  0.6: '0.6',
+  0.6: {
+    style: styles2,
+    label:<strong>0.6</strong>,
+  },
 }
 
 const mark3 = {
-  0.3: '0.3',
+  0.3: {
+    style: styles2,
+    label:<strong>0.3</strong>,
+  },
 }
 
 const mark4 = {
-  0.7: '0.7',
+  0.7: {
+    style: styles2,
+    label:<strong>0.7</strong>,
+  },
 }
 
 const mark5 = {
-  0.7: '0.7',
+  0.7: {
+    style: styles2,
+    label:<strong>0.7</strong>,
+  },
 }
 
 const mark6 = {
-  0.4: '0.4',
+  0.4: {
+    style: styles2,
+    label:<strong>0.6</strong>,
+  },
 }
 
 class ApparelDemo extends React.Component {
@@ -778,12 +920,12 @@ class ApparelDemo extends React.Component {
       week:     0,
       weekWithData: 0,
       inputData: undefined,
-      mark1:  mark1,
-      mark2:  mark2,
-      mark3:  mark3,
-      mark4:  mark4,
-      mark5:  mark5,
-      mark6:  mark6,
+      mark1:  mark0,
+      mark2:  mark0,
+      mark3:  mark0,
+      mark4:  mark0,
+      mark5:  mark0,
+      mark6:  mark0,
       history: [
         series_0_0_0,
       ],
@@ -1058,13 +1200,21 @@ class ApparelDemo extends React.Component {
       this.setState({
         history: [series_0_1_0],
       });
-
     } else {
       this.setState({
         history: [series_0_2_0],
       });
-
     }
+
+    // スライダーのマーク削除
+    this.setState({
+      mark1: mark0,
+      mark2: mark0,
+      mark3: mark0,
+      mark4: mark0,
+      mark5: mark0,
+      mark6: mark0,
+    })
 
   }
 
@@ -1072,6 +1222,28 @@ class ApparelDemo extends React.Component {
   handleClickFitting() {
     // 最後の実績値につないだ新しいシリーズを追加する
     // 属性パラメータを変更する
+
+    // グラフのデータ変更
+    // 予測修正のシリーズを追加
+    if (this.state.attr_avg <= 0.5){
+      this.setState({
+        history: [series_0_1_5_0],
+      });
+    } else {
+      this.setState({
+        history: [series_0_2_5_0],
+      });
+    }
+
+    // スライダーにマーク追加
+    this.setState({
+      mark1: mark1,
+      mark2: mark2,
+      mark3: mark3,
+      mark4: mark4,
+      mark5: mark5,
+      mark6: mark6,
+    })
 
   }
 
@@ -1099,13 +1271,18 @@ class ApparelDemo extends React.Component {
               slider4={this.state.slider4}
               slider5={this.state.slider5}
               slider6={this.state.slider6}
+              mark1={this.state.mark1}
+              mark2={this.state.mark2}
+              mark3={this.state.mark3}
+              mark4={this.state.mark4}
+              mark5={this.state.mark5}
+              mark6={this.state.mark6}
               onSliderChange1={(i) => this.handleSliderChange1(i)}
               onSliderChange2={(i) => this.handleSliderChange2(i)}
               onSliderChange3={(i) => this.handleSliderChange3(i)}
               onSliderChange4={(i) => this.handleSliderChange4(i)}
               onSliderChange5={(i) => this.handleSliderChange5(i)}
               onSliderChange6={(i) => this.handleSliderChange6(i)}
-              mark1={this.state.mark1}
             />
             <Forcast
               history={this.state.history}
