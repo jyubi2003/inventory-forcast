@@ -14,6 +14,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Slider, {createSliderWithTooltip } from 'rc-slider';
 import AppBar from 'material-ui/AppBar';
+import { BrowserRouter, Route, Link } from 'react-router-dom'
 // We can just import Slider or Range to reduce bundle size
 // import Slider from 'rc-slider/lib/Slider';
 // import Range from 'rc-slider/lib/Range';
@@ -78,7 +79,7 @@ class Selections extends React.Component {
           </SelectField>
         </div>
         <div className="detail-link">
-            <a ref="#">詳細</a>
+            <a href="./detail" target="blank">詳細</a>
         </div>
 
         <div  className="selection-1">
@@ -1301,9 +1302,97 @@ class ApparelDemo extends React.Component {
   }
 }
 
+// 商品説明ページ　左
+class Abstruct extends React.Component {
+  render() {
+    return (
+      <div className="abstruct">
+        <div><img src="d092_sl_113.jpg" alt="商品イメージ"></img></div>
+        <div className="title">商品説明文書</div>
+        <div>高級感のあるウール系のツィード素材を使用した、フレアースカート。ブラック×ゴールドのモールを装飾し、上品で価値の高い一着に仕上げました。表地は程よくハリ感のある素材なので、着用時のフレアシルエットが綺麗で、とてもフェミニン。また、ウェスト部分は後ろがゴム仕様になっていて、リラックス感が有り、穿き心地も快適。同素材のショートジャケット（商品番号：62F-22-607）と合わせれば、クラシカルなセットアップスタイルが完成する一着です。トルソー：H172B80W58.5H86着用サイズ:36</div>
+      </div>
+    );
+  }
+}
+
+// 商品説明ページ　右
+class Specification extends React.Component {
+  render() {
+    return (
+      <div className="specification">
+        <div className="spec">
+          <div className="title">商品名称</div>
+          <div>【LOVELESS】WOMENSツィードフレアースカート</div>
+        </div>
+        <div className="spec">
+          <div className="title">メインカテゴリ</div>
+          <div>スカート</div>
+        </div>
+        <div className="spec">
+          <div className="title">サブカテゴリ</div>
+          <div>ひざ丈スカート</div>
+        </div>
+        <div className="spec">
+          <div className="title">商品コード</div>
+          <div>62S9760909</div>
+        </div>
+        <div className="spec">
+          <div className="title">カラー</div>
+          <div>ブラック</div>
+        </div>
+        <div className="spec">
+          <div className="title">値段</div>
+          <div>￥20,520</div>
+        </div>
+        <div className="spec">
+          <div className="title">ブランド</div>
+          <div>GUILD PRIME</div>
+        </div>
+      </div>
+    );
+  }
+}
+
+// 商品説明ページ　全体
+class Detail extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
+  }
+
+  render() {
+    return (
+      <MuiThemeProvider>
+        <div className="apparel-demo">
+          <AppBar />
+          <Abstruct />
+          <Specification />
+        </div>
+      </MuiThemeProvider>
+    );
+  }
+}
+
+// アプリケーション全体
+// Apparel-demo：予測グラフページ
+// Detail:商品説明ページ
+class App extends React.Component {
+  render() {
+    return(
+      <BrowserRouter>
+        <div>
+          <Route exact path="/" component={ApparelDemo} />
+          <Route path="/detail" component={Detail} />
+        </div>
+      </BrowserRouter>
+    );
+  }
+}
+
 // ========================================
 
 ReactDOM.render(
-  <ApparelDemo />,
+  <App />,
   document.getElementById('root')
 );

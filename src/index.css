@@ -230,3 +230,41 @@ img {
   margin-left:   5px;
   /* border:     1px solid #999;  */
 }
+
+.abstruct {
+  margin:     20px 0px 0px;
+  padding:    20px;
+  float:      left;
+  width:      560px;
+  display:    inline;
+  /* border:     1px solid #999; */
+}
+
+.abstruct img {
+  width:      460px;
+  height:     460px;
+  display:    block;
+  align-content: center;
+  margin-left: 40px;
+  margin-bottom: 10px;
+  /* border:     1px solid #999; */
+}
+
+.spec {
+  padding: 0px 0px 30px 0px;
+  /* border:     1px solid #999; */
+}
+
+.title {
+  font-weight: bold;
+  /* border:     1px solid #999; */
+}
+
+.specification {
+  margin:     20px 0px 0px;
+  padding:    0px;
+  float:      right;
+  width:      560px;
+  display:    inline;
+  /* border:     1px solid #999; */
+}
