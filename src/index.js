@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // eslint-disable-next-line
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from 'recharts';
 // eslint-disable-next-line
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import SelectField from 'material-ui/SelectField';
@@ -52,7 +52,8 @@ class Selections extends React.Component {
             fullWidth={true}
             value={this.props.selection1}
             onChange={this.handleChange1}
-            floatingLabelStyle={{fontSize: '14pt'}}
+            floatingLabelStyle={{fontSize: '3.0vh'}}
+            style={{fontSize: '2.0vh'}}
           >
             <MenuItem value={1} primaryText="コート" />
             <MenuItem value={2} primaryText="ジャケット" />
@@ -70,7 +71,8 @@ class Selections extends React.Component {
             fullWidth={true}
             value={this.props.selection2}
             onChange={this.handleChange2}
-            floatingLabelStyle={{fontSize: '14pt'}}
+            floatingLabelStyle={{fontSize: '3.0vh'}}
+            style={{fontSize: '2.0vh'}}
           >
             <MenuItem value={1} primaryText="ミニ" />
             <MenuItem value={2} primaryText="ひざ丈" />
@@ -88,7 +90,8 @@ class Selections extends React.Component {
             fullWidth={true}
             value={this.props.selection3}
             onChange={this.handleChange3}
-            floatingLabelStyle={{fontSize: '14pt'}}
+            floatingLabelStyle={{fontSize: '3.0vh'}}
+            style={{fontSize: '2.0vh'}}
           >
             <MenuItem value={1} primaryText="Ａ店" />
             <MenuItem value={2} primaryText="Ｂ店" />
@@ -129,7 +132,7 @@ class Controls extends React.Component {
   render() {
     return(
       <div className="controls">
-        <p style={{textDecoration: "underline", fontSize: "14pt"}}>属性パラメータ</p>
+        <p style={{textDecoration: "underline", fontSize: "1.2vw"}}>属性パラメータ</p>
         <div>
           <div className="control">
             <div className="control-label">
@@ -222,18 +225,20 @@ class SimpleAreaChart extends React.Component {
 
     return (
       <div className="graph">
-        <p style={{textDecoration: "underline", fontSize: "14pt"}}>予測曲線</p>
-        <LineChart width={750} height={450}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="category" type="category" allowDuplicatedCategory={false} />
-          <YAxis dataKey="value"/>
-          <Tooltip/>
-          <Legend />
-          {currentSeries.map(s => (
-            <Line dataKey="value" data={s.data} name={s.name} key={s.name} stroke={s.stroke} strokeWidth={3} dot={{ strokeWidth: 8, r: 4}} strokeDasharray={s.strokeDasharray}
-            />
-          ))}
-        </LineChart>
+        <p style={{textDecoration: "underline", fontSize: "1.2vw"}}>予測曲線</p>
+        <ResponsiveContainer width="100%" height="95%">
+          <LineChart>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="category" type="category" allowDuplicatedCategory={false} />
+            <YAxis dataKey="value"/>
+            <Tooltip/>
+            <Legend />
+            {currentSeries.map(s => (
+              <Line dataKey="value" data={s.data} name={s.name} key={s.name} stroke={s.stroke} strokeWidth={3} dot={{ strokeWidth: 8, r: 4}} strokeDasharray={s.strokeDasharray}
+              />
+            ))}
+          </LineChart>
+        </ResponsiveContainer>
       </div>
     );
   }
@@ -247,7 +252,7 @@ class Action extends React.Component {
           <IconButton
             iconClassName="icon-prev"
             tooltip="Previous"
-            tooltipPosition="bottom-center"
+            tooltipPosition="top-center"
             onClick={() => this.props.onClickNavi(false)}
           />
           <span>第</span>
@@ -258,7 +263,7 @@ class Action extends React.Component {
           <IconButton
             iconClassName="icon-next"
             tooltip="Next"
-            tooltipPosition="bottom-center"
+            tooltipPosition="top-center"
             onClick={() => this.props.onClickNavi(true)}
           />
         </div>
@@ -267,26 +272,32 @@ class Action extends React.Component {
           className="performance"
           /* value={this.props.inputData} */
           onChange={(event) => this.props.onChangeInput(event)}
+          style={{fontSize: '1.5vw'}}
           /* style={width: 200;} */
           /* hintText="実績" */
         />
-        <RaisedButton
-          className="input"
-          label="実績値入力"
-          primary={true}
-          onClick={() => this.props.onClickInput(true)}
-        />
-        <RaisedButton
-          className="execute"
-          label="予測実行"
-          secondary={true}
-          onClick={() => this.props.onClickPredict(true)}
-        />
-        <RaisedButton
-          className="atr-fitting"
-          label="属性合わせ"
-          onClick={() => this.props.onClickFitting(true)}
-        />
+        <div className="action-buttons">
+          <RaisedButton
+            className="input action-button"
+            label="実績値入力"
+            labelStyle={{fontSize: '0.85vw'}}
+            primary={true}
+            onClick={() => this.props.onClickInput(true)}
+          />
+          <RaisedButton
+            className="execute action-button"
+            label="予測実行"
+            labelStyle={{fontSize: '0.85vw'}}
+            secondary={true}
+            onClick={() => this.props.onClickPredict(true)}
+          />
+          <RaisedButton
+            className="atr-fitting action-button"
+            label="属性合わせ"
+            labelStyle={{fontSize: '0.85vw'}}
+            onClick={() => this.props.onClickFitting(true)}
+          />
+        </div>
       </div>
     );
   }
@@ -402,6 +413,11 @@ const series_0_1_1 = [
 
 // 予測実行１＋２週目実績
 const series_0_1_2 = [
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 25},
+    {category: '第2週', value: 32},
+  ], stroke: '#8884d8'},
   {name: '予測値', data: [
     {category: '第0週', value: 0},
     {category: '第1週', value: 10},
@@ -422,11 +438,6 @@ const series_0_1_2 = [
     {category: '第16週', value: 12},
     {category: '第17週', value: 9}
   ], stroke: '#E57373'},
-  {name: '実績', data: [
-    {category: '第0週', value: 0},
-    {category: '第1週', value: 25},
-    {category: '第2週', value: 32},
-  ], stroke: '#8884d8'},
 ];
 
 // 予測実行１＋３週目実績
@@ -461,6 +472,13 @@ const series_0_1_3 = [
 
 // 予測実行１＋４週目実績
 const series_0_1_4 = [
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 25},
+    {category: '第2週', value: 32},
+    {category: '第3週', value: 58},
+    {category: '第4週', value: 66}
+  ], stroke: '#8884d8'},
   {name: '予測値', data: [
     {category: '第0週', value: 0},
     {category: '第1週', value: 10},
@@ -481,13 +499,6 @@ const series_0_1_4 = [
     {category: '第16週', value: 12},
     {category: '第17週', value: 9}
   ], stroke: '#E57373'},
-  {name: '実績', data: [
-    {category: '第0週', value: 0},
-    {category: '第1週', value: 25},
-    {category: '第2週', value: 32},
-    {category: '第3週', value: 58},
-    {category: '第4週', value: 66}
-  ], stroke: '#8884d8'},
 ];
 
 // 予測実行１＋５週目実績
@@ -524,6 +535,14 @@ const series_0_1_5 = [
 
 // 予測実行１＋５週目実績＋予測修正値
 const series_0_1_5_0 = [
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 25},
+    {category: '第2週', value: 32},
+    {category: '第3週', value: 58},
+    {category: '第4週', value: 66},
+    {category: '第5週', value: 75}
+  ], stroke: '#8884d8'},
   {name: '予測値', data: [
     {category: '第0週', value: 0},
     {category: '第1週', value: 10},
@@ -544,14 +563,6 @@ const series_0_1_5_0 = [
     {category: '第16週', value: 12},
     {category: '第17週', value: 9}
   ], stroke: '#F8BBD0', strokeDasharray: "2 2"},
-  {name: '実績', data: [
-    {category: '第0週', value: 0},
-    {category: '第1週', value: 25},
-    {category: '第2週', value: 32},
-    {category: '第3週', value: 58},
-    {category: '第4週', value: 66},
-    {category: '第5週', value: 75}
-  ], stroke: '#8884d8'},
   {name: '予測修正', data: [
     {category: '第5週', value: 75},
     {category: '第6週', value: 98},
@@ -595,6 +606,10 @@ const series_0_2_0 = [
 
 // 予測実行２＋１週目実績
 const series_0_2_1 = [
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 25},
+  ], stroke: '#8884d8'},
   {name: '予測値', data: [
     {category: '第0週', value: 0},
     {category: '第1週', value: 10},
@@ -615,10 +630,6 @@ const series_0_2_1 = [
     {category: '第16週', value: 10},
     {category: '第17週', value: 10}
   ], stroke: '#E57373'},
-  {name: '実績', data: [
-    {category: '第0週', value: 0},
-    {category: '第1週', value: 25},
-  ], stroke: '#8884d8'},
 ];
 
 // 予測実行２＋２週目実績
@@ -652,6 +663,12 @@ const series_0_2_2 = [
 
 // 予測実行２＋３週目実績
 const series_0_2_3 = [
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 25},
+    {category: '第2週', value: 32},
+    {category: '第3週', value: 58},
+  ], stroke: '#8884d8'},
   {name: '予測値', data: [
     {category: '第0週', value: 0},
     {category: '第1週', value: 10},
@@ -672,12 +689,6 @@ const series_0_2_3 = [
     {category: '第16週', value: 10},
     {category: '第17週', value: 10}
   ], stroke: '#E57373'},
-  {name: '実績', data: [
-    {category: '第0週', value: 0},
-    {category: '第1週', value: 25},
-    {category: '第2週', value: 32},
-    {category: '第3週', value: 58},
-  ], stroke: '#8884d8'},
 ];
 
 // 予測実行２＋４週目実績
@@ -713,6 +724,14 @@ const series_0_2_4 = [
 
 // 予測実行２＋５週目実績
 const series_0_2_5 = [
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 25},
+    {category: '第2週', value: 32},
+    {category: '第3週', value: 58},
+    {category: '第4週', value: 66},
+    {category: '第5週', value: 75}
+  ], stroke: '#8884d8'},
   {name: '予測値', data: [
     {category: '第0週', value: 0},
     {category: '第1週', value: 10},
@@ -733,14 +752,6 @@ const series_0_2_5 = [
     {category: '第16週', value: 10},
     {category: '第17週', value: 10}
   ], stroke: '#E57373'},
-  {name: '実績', data: [
-    {category: '第0週', value: 0},
-    {category: '第1週', value: 25},
-    {category: '第2週', value: 32},
-    {category: '第3週', value: 58},
-    {category: '第4週', value: 66},
-    {category: '第5週', value: 75}
-  ], stroke: '#8884d8'},
 ];
 
 // 予測実行２＋５週目実績＋予測修正
@@ -793,6 +804,13 @@ const series_0_2_5_0 = [
 // スライダのバリエーション用（未使用）
 // eslint-disable-next-line
 const series_0_3_0 = [
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 250},
+    {category: '第2週', value: 320},
+    {category: '第3週', value: 580},
+    {category: '第4週', value: 660}
+  ], stroke: '#8884d8'},
   {name: '予測値', data: [
     {category: '第0週', value: 0},
     {category: '第1週', value: 100},
@@ -813,18 +831,18 @@ const series_0_3_0 = [
     {category: '第16週', value: 120},
     {category: '第17週', value: 90}
   ], stroke: '#E57373'},
-  {name: '実績', data: [
-    {category: '第0週', value: 0},
-    {category: '第1週', value: 250},
-    {category: '第2週', value: 320},
-    {category: '第3週', value: 580},
-    {category: '第4週', value: 660}
-  ], stroke: '#8884d8'},
 ];
 
 // スライダのバリエーション用（未使用）
 // eslint-disable-next-line
 const series_0_4_0 = [
+  {name: '実績', data: [
+    {category: '第0週', value: 0},
+    {category: '第1週', value: 250},
+    {category: '第2週', value: 320},
+    {category: '第3週', value: 580},
+    {category: '第4週', value: 660}
+  ], stroke: '#8884d8'},
   {name: '予測値', data: [
     {category: '第0週', value: 0},
     {category: '第1週', value: 100},
@@ -845,18 +863,12 @@ const series_0_4_0 = [
     {category: '第16週', value: 120},
     {category: '第17週', value: 90}
   ], stroke: '#E57373'},
-  {name: '実績', data: [
-    {category: '第0週', value: 0},
-    {category: '第1週', value: 250},
-    {category: '第2週', value: 320},
-    {category: '第3週', value: 580},
-    {category: '第4週', value: 660}
-  ], stroke: '#8884d8'},
 ];
 
 const styles2 = {
- color: 'red',
- font: 'bold large/150% "メイリオ"',
+  strokeWidth: 1.0,
+  color: 'red',
+  font: 'bold large/150% "メイリオ"',
 }
 
 const mark0 = {
